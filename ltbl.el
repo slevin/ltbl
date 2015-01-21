@@ -1,3 +1,15 @@
+;;; ltbl.el --- Emacs implementation of Lua tables
+
+;; Copyright (C) 2015 Sean Levin
+
+;; Author: Sean Levin
+;; Created: 21 Jan 2015
+;; Version: 20150121
+;; URL: https://github.com/slevin/ltbl
+
+;;; Code:
+
+
 ;; I could make it arraylike also by having a list pointer if the items are numeric?
 
 ;; there is the weak tables as well
@@ -62,3 +74,6 @@
 
 (defun ltbl-getmeta (tbl)
   (nth 2 tbl))
+
+
+;;; ltbl.el ends here

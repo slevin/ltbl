@@ -1,7 +1,7 @@
 (source gnu)
 (source melpa)
 
-(package-file "ltbl")
+(package-file "ltbl.el")
 
 (development
  (depends-on "f")
