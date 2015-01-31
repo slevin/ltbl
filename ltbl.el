@@ -29,16 +29,22 @@
   (list 'ltbl #s(hash-table data items) nil))
 
 (defun ltbl-set (key value tbl)
-  ;; if key doesn't exist, check for and call'__newindex function
-  ;; otherwise if value put it otherwise delete it
-  (let ((existing (gethash key (nth 1 tbl))))
-    (if existing
-        (if value
-            (puthash key value (nth 1 tbl))
-          (remhash key (nth 1 tbl)))
-      (let ((meta (nth 2 tbl)))
-        (if meta (let ((nidx (ltbl-get '__newindex meta)))
-                   (funcall nidx tbl key value)))))))
+  (if value
+      (puthash key value (nth 1 tbl))
+    (remhash key (nth 1 tbl))))
+
+
+;; (defun ltbl-set (key value tbl)
+;;   ;; if key doesn't exist, check for and call'__newindex function
+;;   ;; otherwise if value put it otherwise delete it
+;;   (let ((existing (gethash key (nth 1 tbl))))
+;;     (if existing
+;;         (if value
+;;             (puthash key value (nth 1 tbl))
+;;           (remhash key (nth 1 tbl)))
+;;       (let ((meta (nth 2 tbl)))
+;;         (if meta (let ((nidx (ltbl-get '__newindex meta)))
+;;                    (funcall nidx tbl key value)))))))
 
 (defun ltbl-rawset (key value tbl)
   (if value
@@ -46,20 +52,23 @@
     (remhash key (nth 1 tbl))))
 
 (defun ltbl-get (key tbl)
-  ;; if something return that
-  ;; if nil check if __index is a latbl
-  ;; if so get from that and return
-  ;; if its a function then call it with table and key as params
-  (let ((val (gethash key (nth 1 tbl))))
-    (if val val
-      (let ((meta (nth 2 tbl)))
-        (if meta (let ((idx (ltbl-get '__index meta)))
-                   (if idx
-                       (if (ltblp idx)
-                           (ltbl-get key idx)
-                         (funcall idx tbl key))
-                     nil))
-          nil)))))
+  (gethash key (nth 1 tbl)))
+
+;; (defun ltbl-get (key tbl)
+;;   ;; if something return that
+;;   ;; if nil check if __index is a latbl
+;;   ;; if so get from that and return
+;;   ;; if its a function then call it with table and key as params
+;;   (let ((val (gethash key (nth 1 tbl))))
+;;     (if val val
+;;       (let ((meta (nth 2 tbl)))
+;;         (if meta (let ((idx (ltbl-get '__index meta)))
+;;                    (if idx
+;;                        (if (ltblp idx)
+;;                            (ltbl-get key idx)
+;;                          (funcall idx tbl key))
+;;                      nil))
+;;           nil)))))
 
 (defun ltbl-rawget (key tbl)
   (gethash key (nth 1 tbl)))
