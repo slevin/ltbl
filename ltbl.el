@@ -22,6 +22,16 @@
 ;; __metatable field in the metatable, getmetatable will return the value of this field, whereas setmetatable will raise an error:
 
 
+;; is it possible to make ltbl-set/get be defined as
+;; the function version of the object so I could do quick
+;; read/write stuff with less syntax with them?
+;; or maybe even an oo method call thing
+;; that does (obj: fun param1 param2) pretty sweet
+;; maybe also define an iterable version as well?
+;; that would do pairs, keys, or values easy to use in dash
+;; migrate from alist to hashtable version if it gets too large
+;;
+
 (defun ltblp (tbl)
   (equal (car tbl) 'ltbl))
 
